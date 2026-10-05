@@ -6,7 +6,7 @@ import os
 app= Flask(__name__)
 CORS(app)
 c= (
-    "DRIVER={ODBC Driver 17 for SQL Server};"
+    "DRIVER={ODBC Driver 18 for SQL Server};"
     "SERVER=tcp:workouttracker2029.database.windows.net,1433;"
     "DATABASE=Workout;"
     "UID=workout;"
