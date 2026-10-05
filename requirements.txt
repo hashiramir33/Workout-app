@@ -1,0 +1,4 @@
+Flask
+pyodbc==5.3.0
+flask-cors
+gunicorn

@@ -1,0 +1,45 @@
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212 ;
+    ;
+
+}
+
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    color: darkred;
+}
+
+h2{
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+}
+
+
+ul{
+    color: aliceblue;
+    font-family: cursive;
+    
+    
+}
+label{
+
+    color: aliceblue;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button{
+    color: black;
+    background-color: #7F3F46;
+}
+input{
+    background-color: darkgrey;
+}
+
+.gym {
+    width: 400px;
+    height: 300px;
+    border-style:double;
+}
+
+
