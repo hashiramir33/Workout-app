@@ -1,4 +1,4 @@
-fetch("http://127.0.0.1:5000/workouts")
+fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts")
 .then(response => response.json())
 .then(data => {
     var wol= document.getElementById("workouts")
@@ -32,7 +32,7 @@ fetch("http://127.0.0.1:5000/workouts")
             Weight: weight.value
 
         }
-        fetch("http://127.0.0.1:5000/workouts",{
+        fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts",{
            method : "POST",
            headers: {
             "Content-Type": "application/json"
@@ -58,7 +58,7 @@ fetch("http://127.0.0.1:5000/workouts")
 var cb= document.getElementById("cb")
 
 cb.addEventListener("click", function(){
-    fetch("http://127.0.0.1:5000/workouts",{
+    fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts",{
            method : "DELETE"
     })
     .then(response=> response.json())
