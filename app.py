@@ -7,11 +7,11 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 app= Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:5500"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins":[ "http://localhost:5500","https://workoutfrontend229.z1.web.core.windows.net"]}}, supports_credentials=True)
 app.secret_key = os.getenv("Secret")
 app.config.update(
-    SESSION_COOKIE_SAMESITE="Lax",
-    SESSION_COOKIE_SECURE=False,
+    SESSION_COOKIE_SAMESITE="Non",
+    SESSION_COOKIE_SECURE=True,
     SESSION_COOKIE_HTTPONLY=True
 )
 
@@ -149,7 +149,7 @@ def auth_callback():
         "email": user.get("email")
     }
 
-    return redirect("http://localhost:5500/Main.html")
+    return redirect("https://workoutfrontend229.z1.web.core.windows.net/Main.html")
 
 
 @app.route("/api/user")
