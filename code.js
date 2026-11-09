@@ -1,13 +1,16 @@
+
+
+const API = "https://workout-g2d9fyctefa0bxam.westus3-01.azurewebsites.net";
 var login = document.getElementById("lbbuuton");
  login.addEventListener("click", function() {
-    window.location.href = "http://localhost:5000/auth/login";
+    window.location.href = `${API}/auth/login`;
     });
 
 
 
 
 
-fetch("http://localhost:5000/workouts")
+ fetch(`${API}/workouts`)
 .then(response => response.json())
 .then(data => {
     var wol= document.getElementById("workouts")
@@ -22,20 +25,20 @@ fetch("http://localhost:5000/workouts")
 
    
 
-    logout.addEventListener("click", function() {
-    fetch("http://localhost:5000/auth/logout", {
+  logout.addEventListener("click", function() {
+    fetch(`${API}/auth/logout`, {
         credentials: "include"
     })
     .then(() => {
         location.reload();
-        });
     });
+});
 
 
 
-    fetch("http://localhost:5000/api/user", {
+     fetch(`${API}/api/user`, {
     credentials: "include"
-    })
+     })
     .then(response => response.json())
     .then(user => {
 
@@ -108,7 +111,7 @@ fetch("http://localhost:5000/workouts")
             Weight: wevalue
 
         }
-        fetch("http://localhost:5000/workouts",{
+       fetch(`${API}/workouts`,{
            method : "POST",
            headers: {
             "Content-Type": "application/json"
@@ -134,7 +137,7 @@ fetch("http://localhost:5000/workouts")
 var cb= document.getElementById("cb")
 
 cb.addEventListener("click", function(){
-    fetch("http://localhost:5000/workouts",{
+    fetch(`${API}/workouts`, {
            method : "DELETE"
     })
     .then(response=> response.json())
