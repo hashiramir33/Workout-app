@@ -1,3 +1,4 @@
+
 name: Build and deploy Python app to Azure Web App - workout
 
 on:
@@ -9,6 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -30,24 +33,32 @@ jobs:
           path: |
             .
             !antenv/
-            !.git/
-            !.github/
             !.env
+            !.git/
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v4
         with:
           name: python-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_7979D74CB7C44E7F8B1F0F30C1C3FD6C }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_416EF5CB9D2B4946BB1907AC936C8649 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_66A74AF519AF4B0E9CCC235DE21A9AF4 }}
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: workout
           slot-name: Production
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
           package: .
+
