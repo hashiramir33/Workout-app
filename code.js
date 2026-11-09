@@ -1,4 +1,13 @@
-fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts")
+var login = document.getElementById("lbbuuton");
+ login.addEventListener("click", function() {
+    window.location.href = "http://localhost:5000/auth/login";
+    });
+
+
+
+
+
+fetch("http://localhost:5000/workouts")
 .then(response => response.json())
 .then(data => {
     var wol= document.getElementById("workouts")
@@ -7,6 +16,52 @@ fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workout
     var reps = document.getElementById("reps")
     var weight = document.getElementById("weight")
     var form = document.getElementById("workoutForm")
+    var welcome = document.getElementById("welcome");
+    var login = document.getElementById("lbbuuton");
+    var logout = document.getElementById("logouttbbutt");
+
+   
+
+    logout.addEventListener("click", function() {
+    fetch("http://localhost:5000/auth/logout", {
+        credentials: "include"
+    })
+    .then(() => {
+        location.reload();
+        });
+    });
+
+
+
+    fetch("http://localhost:5000/api/user", {
+    credentials: "include"
+    })
+    .then(response => response.json())
+    .then(user => {
+
+    if (user.logged_in) {
+            welcome.textContent = "Hello, " + user.name + "!";
+            login.hidden = true;
+            logout.hidden = false;
+    } 
+    
+    else {
+            welcome.textContent = "";
+            login.hidden = false;
+            logout.hidden = true;
+    }
+
+    });
+
+
+
+
+   
+
+
+
+
+
 
     for(var i = 0; i < data.length; i++){
 
@@ -25,14 +80,35 @@ fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workout
 
     form.addEventListener("submit", function(event){
         event.preventDefault()
-        var work={
-            Excer: exc.value,
-            setsss: set.value,
-            Reps: reps.value,
-            Weight: weight.value
+        var ex=exc.value
+        var exs=Number(set.value)
+        var re = Number(reps.value)
+        var wevalue= Number(weight.value)
+        if(ex===""|| ex.length>30){
+            alert("Excersize name should be less han 50")
+            return;
+        }
+        if(exs<=0|| re<=0 || wevalue<=0){
+            alert("value has to be positive")
+            return;
 
         }
-        fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts",{
+
+
+
+
+
+
+
+
+        var work={
+            Excer: ex,
+            setsss: exs,
+            Reps: re,
+            Weight: wevalue
+
+        }
+        fetch("http://localhost:5000/workouts",{
            method : "POST",
            headers: {
             "Content-Type": "application/json"
@@ -58,7 +134,7 @@ fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workout
 var cb= document.getElementById("cb")
 
 cb.addEventListener("click", function(){
-    fetch("https://lifttracker-edubbgbywpfpgren.westus3-01.azurewebsites.net/workouts",{
+    fetch("http://localhost:5000/workouts",{
            method : "DELETE"
     })
     .then(response=> response.json())
